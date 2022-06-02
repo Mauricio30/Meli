@@ -1,0 +1,18 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mauricio Ruiz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.1",
+    "got": "^11.8.5",
+    "node-fetch": "^2.6.7",
+    "stream": "0.0.2"
+  }
+}
