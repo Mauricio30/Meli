@@ -1,8 +1,9 @@
 const { authorModel } = require('./authorModel');
 
-const itemModel = {
+const itemsModel = {
     author: authorModel,
-    item: {
+    categories: Array,
+    items: Array[{
         id: String,
         title: String,
         price: {
@@ -12,12 +13,10 @@ const itemModel = {
         },
         picture: String,
         condition: String,
-        free_shipping: Boolean,
-        sold_quantity: Number,
-        description: String
-    }
+        free_shipping: Boolean
+    }]
 }
 
 module.exports = {
-    itemModel
+    itemsModel
 }

@@ -7,10 +7,6 @@ const endpointDescription = (id) => `https://api.mercadolibre.com/items/${id}/de
 
 const createResponse = (items, itemDescription) => {
     const newItem = itemModel;
-    newItem.author = {
-        name: 'Mauricio',
-        lastName: 'Ruiz'
-    }
     const {
         id,
         title,
