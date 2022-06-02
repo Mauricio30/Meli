@@ -1,5 +1,5 @@
 const getHttp = require('../services/apiService')
-const { itemModel } = require('../models/item');
+const { itemModel } = require('../models/itemModel');
 
 // endpoint constants
 const endpointSearchItems = (id) => `https://api.mercadolibre.com/items/${id}`;
