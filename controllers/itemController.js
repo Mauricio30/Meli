@@ -1,17 +1,14 @@
 const getHttp = require('../services/apiService')
-const { itemModel } = require('../models/itemModel');
-
-// endpoint constants
-const endpointSearchItems = (id) => `https://api.mercadolibre.com/items/${id}`;
-const endpointDescription = (id) => `https://api.mercadolibre.com/items/${id}/description`
+const { itemAndDescriptionModel } = require('../models/itemModel');
+const { endpointSearchItem, endpointDescription } = require('../constants/constants');
 
 const createResponse = (items, itemDescription) => {
-    const newItem = itemModel;
+    const newItem = JSON.parse(JSON.stringify(itemAndDescriptionModel));
     const {
         id,
         title,
-        price,
-        currency_id,
+        price: amount,
+        currency_id : currency,
         pictures,
         condition,
         shipping: {
@@ -24,8 +21,8 @@ const createResponse = (items, itemDescription) => {
         id,
         title,
         price: {
-            currency: currency_id,
-            amount: price,
+            currency,
+            amount,
             decimals: ''
         },
         picture: pictures[0].secure_url,
@@ -39,11 +36,10 @@ const createResponse = (items, itemDescription) => {
 
 const itemController = async (request, response) => {
     const id = request.params.id;
-    const items = await getHttp(endpointSearchItems(id));
+    const item = await getHttp(endpointSearchItem(id));
     const description = await getHttp(endpointDescription(id));
-    const item = createResponse(items, description);
-    console.log(id, items, description, item);
-    response.status(201).json(item)
+    const itemResponse = createResponse(item, description);
+    response.status(200).json(itemResponse);
 }
 
 module.exports = itemController;
