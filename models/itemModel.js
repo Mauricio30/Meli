@@ -20,6 +20,7 @@ const itemAndDescriptionModel = {
     author: authorModel,
     item: {
         ...itemModel,
+        categories: Array(),
         description
     }
 }

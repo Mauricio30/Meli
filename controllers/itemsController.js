@@ -1,25 +1,10 @@
 const getHttp = require('../services/apiService')
-const { itemModel } = require('../models/itemModel');
 const { itemsModel } = require('../models/itemsModel');
-const { endpointSearchItems, categoryId, initialPathInValues, maxResult } = require('../constants/constants')
-
-const searchCategory = (categories) => {
-    console.log(categories);
-    let categoriesName = new Array();
-    const category = categories[0];
-    category.values[initialPathInValues].path_from_root.map(path => {
-        categoriesName.push(path.name);
-    });
-    return categoriesName;
-}
-
-const getCategory = async (id) => {
-    const category = await getHttp(endpointSearchItems(categoryId, id));
-    return category.filters;
-}
+const { endpointSearchItems, categoryId, initialPathInValues, maxResult } = require('../constants/constants');
+const { getCategory, searchCategory } = require('./categoriesController');
+const { convertNumber } = require('../utils/utils');
 
 const createResponse = async (items) => {
-    console.log(itemsModel);
     const itemsList = JSON.parse(JSON.stringify(itemsModel));
     items.results.map((result => {
         const {
@@ -34,13 +19,14 @@ const createResponse = async (items) => {
             },
             sold_quantity
         } = result;
+        const { int, decimals } = convertNumber(amount);
         itemsList.items.push({
             id,
             title,
             price: {
                 currency,
-                amount,
-                decimals: ''
+                amount: int,
+                decimals
             },
             picture,
             condition,
